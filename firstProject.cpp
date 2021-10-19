@@ -31,14 +31,14 @@ bool checkFileExist(string);
 int main()
 {
     //storage modes : 
-    // 1 = Vector
-    // 2 = map
+    // v = Vector
+    // m = map
 
     int maxSize = 8000;
 
     string initFile;
     string moveFile;
-    int mode;
+    char mode;
     bool validPrintInput = false;
     vector<Point> pointsVector;
     map<int, Point> pointsMap;
@@ -48,36 +48,36 @@ int main()
 
     mode = requestMode();
 
-    if (mode == 1) {
+    if (mode == 'v') {
         pointsVector = initPointsInVector(initFile, maxSize);
     }
-    else if (mode == 2) {
+    else if (mode == 'm') {
         pointsMap = initPointsInMap(initFile, maxSize);
     }
 
     if (yesOrNoQuestion("Do you want to print out the points? (yes = Y / no = Anything else)")) {
-        if (mode == 1) {
+        if (mode == 'v') {
             printPoints(pointsVector);
         }
-        else if (mode == 2) {
+        else if (mode == 'm') {
             printPoints(pointsMap);
         }
     }
     
     moveFile = requestFile("Please enter the name of the move file (ex: move.txt) :");
 
-    if (mode == 1) {
+    if (mode == 'v') {
         pointsVector = movePointsFromVector(pointsVector, moveFile, maxSize);
     }
-    else if (mode == 2) {
+    else if (mode == 'm') {
         pointsMap = movePointsFromMap(pointsMap, moveFile, maxSize);
     }
 
     if (yesOrNoQuestion("Do you want to print out the new points? (yes = Y / no = Anything else)")) {
-        if (mode == 1) {
+        if (mode == 'v') {
             printPoints(pointsVector);
         }
-        else if (mode == 2) {
+        else if (mode == 'm') {
             printPoints(pointsMap);
         }
     }
@@ -100,19 +100,19 @@ string requestFile(string msg) {
 int requestMode() {
     // ask the user to select a mode and then check if is a valid one
     bool validMode = false;
-    int mode;
+    char mode;
     while (validMode == false) {
 
-        cout << "In what type of container do you want to store the points?" << endl << "[1] -> vector" << endl << "[2] -> map" << endl;
+        cout << "In what type of container do you want to store the points?" << endl << "[v] -> vector" << endl << "[m] -> map" << endl;
         
         while (!(std::cin >> mode)) { // will loop until the user input is of the same type of the variable that it is supposed to go in
             std::cout << "Error! You must type a number" << endl;
-            cout << "In what type of container do you want to store the points?" << endl << "[1] -> vector" << endl << "[2] -> map" << endl;
+            cout << "In what type of container do you want to store the points?" << endl << "[v] -> vector" << endl << "[m] -> map" << endl;
             std::cin.clear(); // clear all errors flags of cin
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Extract and discard all characters (one by one until the limit set, here "std::numeric_limits<std::streamsize>::max()" set the limit at the max lenght of the stream(string) inputed)
         }
 
-        if (mode == 1 || mode == 2) {
+        if (mode == 'v' || mode == 'm') {
             validMode = true;
         }
         else {
@@ -237,6 +237,7 @@ map<int, Point> movePointsFromMap(map<int, Point> points, string fileName, int m
                     newY = maxSize - (newY - maxSize);
                 }
 
+                //cout << "Moving point " << id << " from x:" << (*itr).second.Point::X() << ", y:" << (*itr).second.Point::Y() << " to x:" << newX << ", y:" << newY << endl;
                 (*itr).second.Point::X(newX);
                 (*itr).second.Point::X(newY);
             }
@@ -309,6 +310,7 @@ bool yesOrNoQuestion(string msg) {
     else {
         return false;
     }
+    return false;
 }
 
 void printPoints(map<int, Point> points) {
