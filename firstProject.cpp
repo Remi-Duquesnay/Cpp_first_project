@@ -167,12 +167,19 @@ vector<Point> initPointsInVector(string fileName, int maxSize) {
     file.open(fileName, ios::in); // open the file in read mode (ios::in)
     if (file.is_open()) { // check if the file is open
 
-        //Loop to read each line of the file and initialize a point with the data obtained from each line
         string line; // declaration of the variable that will contain the line that we obtain.
+        int nbLine = 0;
+        while (getline(file, line)) {
+            nbLine++;
+        }
+        file.clear();
+        file.seekg(0, std::ios::beg);
+        points.reserve(nbLine);
+
+        //Loop to read each line of the file and initialize a point with the data obtained from each line
         while (getline(file, line)) {
             stringstream linestream(line); // convert the string into a stream 
             string sId, sX, sY; // declaring the variables that will get the data as strings
-
             // getline extract everything until a ';' (or the end of the stream) and store it into a variable
             // the data extracted and the delimiter (';') will be removed from the stream
             getline(linestream, sId, ';');
