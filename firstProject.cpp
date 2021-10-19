@@ -307,9 +307,7 @@ bool yesOrNoQuestion(string msg) {
     if (userInput == 'Y' || userInput == 'y') {
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }
 
 void printPoints(map<int, Point> points) {
@@ -332,8 +330,6 @@ bool checkFileExist(string fileName) {
     if (file.is_open()) { // check if the file is opened (mean that the file exist)
         return  true;
     }
-    else {
-        cout << "File not found" << endl;
-        return false;
-    }
+    cout << "File not found" << endl;
+    return false;
 }
