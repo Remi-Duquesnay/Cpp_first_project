@@ -310,7 +310,6 @@ bool yesOrNoQuestion(string msg) {
     else {
         return false;
     }
-    return false;
 }
 
 void printPoints(map<int, Point> points) {
