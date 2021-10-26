@@ -414,11 +414,28 @@ void printPoints(vector<Point> points) {
 }
 
 bool checkFileExist(string fileName) {
-    fstream file; // declaration of the variable that will contain the file that we want to interact with.
-    file.open(fileName, ios::in); // open the file in read mode (ios::in)
-    if (file.is_open()) { // check if the file is opened (mean that the file exist)
-        return  true;
+    try {
+        fstream file; // declaration of the variable that will contain the file that we want to interact with.
+        file.open(fileName, ios::in); // open the file in read mode (ios::in)
+        if (file.is_open()) { // check if the file is opened (mean that the file exist)
+            file.close(); // close the file
+            return  true;
+        }
+        else {
+            throw "File not found";
+        }
     }
-    cout << "File not found" << endl;
-    return false;
+    catch (const char * exception) {
+        cout << exception << endl;
+        return false;
+    }
+
+    //fstream file; // declaration of the variable that will contain the file that we want to interact with.
+    //file.open(fileName, ios::in); // open the file in read mode (ios::in)
+    //if (file.is_open()) { // check if the file is opened (mean that the file exist)
+    //    file.close(); // close the file
+    //    return  true;
+    //}
+    //cout << "File not found" << endl;
+    //return false;
 }
